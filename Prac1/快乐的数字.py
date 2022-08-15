@@ -10,5 +10,4 @@ def check(n:int):
             return True
         n=nextNum(n)
     return False
-n=eval(input())
-print(check(n))
+print(check(eval(input())))

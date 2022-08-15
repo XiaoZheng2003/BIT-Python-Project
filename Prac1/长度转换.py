@@ -1,5 +1,5 @@
 s=input()
-if s[-1:]=='m':
+if s[-1]=='m':
     m=eval(s[:-1])
     print("{:.2f}ft".format(m*3.2808))
 else:
