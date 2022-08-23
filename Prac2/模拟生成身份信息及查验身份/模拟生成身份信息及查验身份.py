@@ -228,7 +228,7 @@ def check_city(id_number, city_name, city_code, area_live):
     """
     if city_name==area_live:
         return "持证人居住于{}市".format(city_name)
-    if city_name==area_of_registration(id_number,area_number):
+    if city_code==id_number[:6]:
         return "持证人出生于{}市".format(city_name)
     return "持证人与{}无关联".format(city_name)
 
