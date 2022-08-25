@@ -64,7 +64,29 @@ def statistic(info:list)->list:
     @参数 info：每个月的四个数值，列表类型，列表为字符串类型。
     """
 
-    ...
+    t_max=0
+    max_sum=0
+    min_sum=0
+    t_min=100
+    t_avemax=0
+    t_avemin=0
+    for i in info:
+        max_sum+=eval(i[0])
+        min_sum+=eval(i[1])
+        if eval(i[2])>t_max:
+            t_max=eval(i[2])
+        if eval(i[3])<t_min:
+            t_min=eval(i[3])
+    t_avemax=max_sum/12
+    t_avemin=min_sum/12
+    tem=[]
+    t_avemax=str(t_avemax)
+    t_avemin=str(t_avemin)
+    t_max=str(t_max)
+    t_min=str(t_min)
+    tem=[t_avemax,t_avemin,t_max,t_min]
+    return tem
+
 
 def analyse(text:str)->list:
     """
