@@ -31,7 +31,19 @@ def getProvincefromCity(dic:dict,city:str)->str:
     for key,value in dic.items() :
         if city in value :
             return key
+        
+def getCityList(dic:dict)->list:
+    """
+    该函数负责导出一个城市列表。
 
+    @参数 dic：省市字典，字典类型。
+    """
+    ls=[]
+    for value in dic.values():
+        for city in value:
+            ls.append(city)
+    return ls
+    
 def completeUrl(city:str,date:str)->str:
     """
     该函数负责对于网址的合成，返回为一个字符串，为该省份历史天气的url。
