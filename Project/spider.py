@@ -1,8 +1,8 @@
 from bs4 import BeautifulSoup
 from xpinyin import Pinyin
-import dic
 import requests
 import time
+import dic
 
 def getHTMLText(url:str):
     """
@@ -26,7 +26,7 @@ def getProvincefromCity(dic:dict,city:str)->str:
     该函数负责接受一个城市名，返回它所对应的省。
 
     @参数 dic：省市字典，字典类型。
-    @参数 city:输入城市的名字，字符串类型。
+    @参数 city：输入城市的名字，字符串类型。
     """
     for key,value in dic.items() :
         if city in value :
