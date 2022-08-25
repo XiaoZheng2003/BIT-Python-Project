@@ -90,14 +90,16 @@ def annualWeather(city:str,year:str)->list:
     @参数 city：代分析城市的名称，字符串类型。
     @参数 year：分析的年份，字符串类型。
     """
-    ans=[]
+    ls=[]
     nowyear=time.strftime("%Y",time.localtime())
     nowmonth=time.strftime("%m",time.localtime())
+    if nowmonth[0]=='0':
+        nowmonth=nowmonth[1:]
     for i in range(1,(eval(nowmonth)+1) if year==nowyear else 13):
         url=completeUrl(city,year+"{:0>2d}".format(i))
         text=getHTMLText(url)
-        ans.append(analyse(text))
-    return statistic(ans)
+        ls.append(analyse(text))
+    return statistic(ls)
 
 def getYear()->str:
     """
