@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from xpinyin import Pinyin
 import requests
 
 def getHTMLText(url:str):
@@ -33,11 +34,10 @@ def completeUrl(city:str,date:str)->str:
 
     示例：https://lishi.tianqi.com/beijing/202207.html
 
-    @参数 city：城市拼音，如北京为beijing，字符串类型。
+    @参数 city：城市名称，如北京，字符串类型。
     @参数 date：要查询的年月，如2022年7月为202207，字符串类型。
     """
-
-    ...
+    return "https://lishi.tianqi.com/"+Pinyin().get_pinyin(city,'')+'/'+date
 
 def statistic(info:list)->list:
     """
@@ -62,3 +62,9 @@ def analyse(text:str)->list:
     for item in ls:
         ans.append(item.text[:-1])
     return ans[0:4]
+
+def main():
+    ...
+
+if __name__ == '__main__':
+    main()
