@@ -43,7 +43,7 @@ def statistic(info:list)->list:
     """
     根据各月份的天气信息，统计出一年的平均高温、平均低温、极端高温、极端低温信息，返回四个数值。
 
-    @参数 info：每个月的四个数值，列表类型。
+    @参数 info：每个月的四个数值，列表类型，列表为字符串类型。
     """
 
     ...
@@ -52,7 +52,13 @@ def analyse(text:str)->list:
     """
     分析爬取的网页，并返回为一个列表，包括平均高温、平均低温、极端高温、极端低温四个信息。
 
+    列表为字符串类型。
+
     @参数 text：网页的内容，字符串类型。
     """
-
-    ...
+    soup=BeautifulSoup(text,"html.parser")
+    ls=soup.find_all(class_="tian_twoa")
+    ans=[]
+    for item in ls:
+        ans.append(item.text[:-1])
+    return ans[0:4]
