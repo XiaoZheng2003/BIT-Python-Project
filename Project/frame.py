@@ -111,7 +111,7 @@ def getYear()->str:
     return year
 
 def main():
-    ls=getCityList()
+    ls=getCityList(dic.dic)
     year=getYear()
     f=open("result-{}年.csv".format(year),"w",encoding='utf-8')
     f.write("省份,城市,平均高温,平均低温,极端高温,极端低温\n")
