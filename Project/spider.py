@@ -13,8 +13,9 @@ def getHTMLText(url:str):
     @参数 url：爬取网页的url，包括协议头（如http://），字符串类型
     """
     try:
-        kv={'user-agent':'Mozilla/5.0'}
+        kv={'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 Edg/104.0.1293.63'}
         r=requests.get(url,timeout=30,headers=kv)
+        time.sleep(2)                               #防止请求过快，爬虫受限
         r.raise_for_status()
         r.encoding=r.apparent_encoding
         return r.text
@@ -53,7 +54,11 @@ def completeUrl(city:str,date:str)->str:
     @参数 city：城市名称，如北京，字符串类型。
     @参数 date：要查询的年月，如2022年7月为202207，字符串类型。
     """
-    return "https://lishi.tianqi.com/"+Pinyin().get_pinyin(city,'')+'/'+date
+    if city!='重庆':
+        pinyin=Pinyin().get_pinyin(city,'')
+    else:
+        pinyin="chongqing"
+    return "https://lishi.tianqi.com/"+pinyin+'/'+date
 
 def statistic(info:list)->list:
     """
@@ -63,8 +68,7 @@ def statistic(info:list)->list:
 
     @参数 info：每个月的四个数值，列表类型，列表为字符串类型。
     """
-
-    t_max=0
+    t_max=-100
     max_sum=0
     min_sum=0
     t_min=100
@@ -77,18 +81,12 @@ def statistic(info:list)->list:
             t_max=eval(i[2])
         if eval(i[3])<t_min:
             t_min=eval(i[3])
-    t_avemax=max_sum/12
-    t_avemin=min_sum/12
-    tem=[]
-    t_avemax=str(t_avemax)
-    t_avemin=str(t_avemin)
-    t_max=str(t_max)
-    t_min=str(t_min)
-    tem=[t_avemax,t_avemin,t_max,t_min]
-    return tem
+    t_avemax=max_sum/len(info)
+    t_avemin=min_sum/len(info)
+    return round(t_avemax,1),round(t_avemin,1),t_max,t_min
 
 
-def analyse(text:str)->list:
+def analyse(text:str):
     """
     分析爬取的网页，并返回为一个列表，包括平均高温、平均低温、极端高温、极端低温四个信息。
 
@@ -98,6 +96,8 @@ def analyse(text:str)->list:
     """
     soup=BeautifulSoup(text,"html.parser")
     ls=soup.find_all(class_="tian_twoa")
+    if not ls:
+        return False
     ans=[]
     for item in ls:
         ans.append(item.text[:-1])
@@ -120,8 +120,36 @@ def annualWeather(city:str,year:str)->list:
     for i in range(1,(eval(nowmonth)+1) if year==nowyear else 13):
         url=completeUrl(city,year+"{:0>2d}".format(i))
         text=getHTMLText(url)
-        ls.append(analyse(text))
+        cnt=0
+        while not text:
+            print("{}天气获取错误！".format(city))
+            cnt+=1
+            reportError(text,cnt)
+            text=getHTMLText(url)
+        t=analyse(text)
+        while not t:
+            print("{}天气获取错误！".format(city))
+            cnt+=1
+            reportError(text,cnt)
+            text=getHTMLText(url)
+            t=analyse(text)
+        ls.append(t)
     return statistic(ls)
+
+def reportError(text,num:int):
+    """
+    该函数为报告错误函数，将会为当前时间生成一个日志文件，保存当时的网页内容
+
+    @参数 text：报错时的网页内容，字符串类型，或为False。
+    """
+    if not text:
+        return
+    if num>10:
+        print('错误次数达到上限！程序自动退出！')
+        quit()
+    f=open('error_{}.txt'.format(time.strftime("%Y%m%d%H%M%S",time.localtime())),"w",encoding='utf-8')
+    f.write(text)
+    f.close()
 
 def getYear()->str:
     """
@@ -142,6 +170,7 @@ def main():
     for city in ls:
         res=annualWeather(city,year)
         f.write("{},{},{},{},{},{}\n".format(getProvincefromCity(dic.dic,city),city,res[0],res[1],res[2],res[3]))
+        print("{},{},{},{},{},{}".format(getProvincefromCity(dic.dic,city),city,res[0],res[1],res[2],res[3]))
 
 
 if __name__ == '__main__':
