@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from xpinyin import Pinyin
+import dic
 import requests
 import time
 
@@ -20,23 +21,16 @@ def getHTMLText(url:str):
     except:
         return False
 
-def Inthelist(list,n):
-    for i in list:
-        if(i == n) :
-            return True
-        else:return False
-
-def getCityName(dic,n):
+def getProvincefromCity(dic:dict,city:str)->str:
     """
-    该函数负责从json中解析出省市信息，返回为一个列表，包括各市的信息（不包含“市”）。
+    该函数负责接受一个城市名，返回它所对应的省。
 
-    @参数 dic：省市字典的文件名，字典类型。
-    @参数 n:输入城市的名字，字符串类型。
+    @参数 dic：省市字典，字典类型。
+    @参数 city:输入城市的名字，字符串类型。
     """
     for key,value in dic.items() :
-        if n==value :
+        if city in value :
             return key
-
 
 def completeUrl(city:str,date:str)->str:
     """
@@ -111,7 +105,7 @@ def main():
     f.write("省份,城市,平均高温,平均低温,极端高温,极端低温\n")
     for city in ls:
         res=annualWeather(city,year)
-        f.write("{},{},{},{},{},{}\n".format(getProvincefromCity(city),city,res[0],res[1],res[2],res[3]))
+        f.write("{},{},{},{},{},{}\n".format(getProvincefromCity(dic.dic,city),city,res[0],res[1],res[2],res[3]))
 
 
 if __name__ == '__main__':
