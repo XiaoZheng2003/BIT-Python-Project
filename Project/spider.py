@@ -13,11 +13,13 @@ def getHTMLText(url:str):
     @参数 url：爬取网页的url，包括协议头（如http://），字符串类型
     """
     try:
-        kv={'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 Edg/104.0.1293.63'}
+        kv={'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
+        AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102\
+        Safari/537.36 Edg/104.0.1293.63'}           #添加user-agent，防止被网站拒绝访问
         r=requests.get(url,timeout=30,headers=kv)
         time.sleep(2)                               #防止请求过快，爬虫受限
-        r.raise_for_status()
-        r.encoding=r.apparent_encoding
+        r.raise_for_status()                        #若网站返回非200的错误代码，则报错
+        r.encoding=r.apparent_encoding              #修改网页编码
         return r.text
     except:
         return False
@@ -29,8 +31,8 @@ def getProvincefromCity(dic:dict,city:str)->str:
     @参数 dic：省市字典，字典类型。
     @参数 city：输入城市的名字，字符串类型。
     """
-    for key,value in dic.items() :
-        if city in value :
+    for key,value in dic.items():
+        if city in value:
             return key
         
 def getCityList(dic:dict)->list:
@@ -54,10 +56,12 @@ def completeUrl(city:str,date:str)->str:
     @参数 city：城市名称，如北京，字符串类型。
     @参数 date：要查询的年月，如2022年7月为202207，字符串类型。
     """
-    if city!='重庆':
-        pinyin=Pinyin().get_pinyin(city,'')
+    if city=='重庆':                            #重庆进行特殊处理，否则返回zhongqing
+        pinyin='chongqing'
+    if city=='香港':                            #香港进行特殊处理
+        pinyin='hongkong'
     else:
-        pinyin="chongqing"
+        pinyin=Pinyin().get_pinyin(city,'')
     return "https://lishi.tianqi.com/"+pinyin+'/'+date
 
 def statistic(info:list)->list:
@@ -120,7 +124,7 @@ def annualWeather(city:str,year:str)->list:
     for i in range(1,(eval(nowmonth)+1) if year==nowyear else 13):
         url=completeUrl(city,year+"{:0>2d}".format(i))
         text=getHTMLText(url)
-        cnt=0
+        cnt=0                                           #错误次数统计
         while not text:
             print("{}天气获取错误！".format(city))
             cnt+=1
@@ -142,14 +146,16 @@ def reportError(text,num:int):
 
     @参数 text：报错时的网页内容，字符串类型，或为False。
     """
+    maxError=10                                     #最大错误次数
+    if num>=maxError:                               #超过最大错误次数，则退出程序
+        print('错误次数达到上限！程序自动退出！')
+        exit()
     if not text:
         return
-    if num>10:
-        print('错误次数达到上限！程序自动退出！')
-        quit()
-    f=open('error_{}.txt'.format(time.strftime("%Y%m%d%H%M%S",time.localtime())),"w",encoding='utf-8')
+    f=open('error_{}.log'.format(time.strftime("%Y%m%d%H%M%S",\
+    time.localtime())),"w",encoding='utf-8')
     f.write(text)
-    f.close()
+    f.close()                                       #保存日志文件
 
 def getYear()->str:
     """
@@ -165,7 +171,8 @@ def getYear()->str:
 def main():
     ls=getCityList(dic.dic)
     year=getYear()
-    f=open("result-{}年.csv".format(year),"w",encoding='utf-8')
+    f=open("result-{}年.csv".format(year),"w",encoding='gbk')       #以gbk编码保存，方便excel打开
+    print("省份,城市,平均高温,平均低温,极端高温,极端低温")
     f.write("省份,城市,平均高温,平均低温,极端高温,极端低温\n")
     for city in ls:
         res=annualWeather(city,year)
