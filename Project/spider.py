@@ -72,20 +72,20 @@ def statistic(info:list)->list:
 
     @参数 info：每个月的四个数值，列表类型，列表为字符串类型。
     """
-    t_max=-100
-    max_sum=0
-    min_sum=0
-    t_min=100
-    t_avemax=0
-    t_avemin=0
+    t_max=-100#极端高温
+    max_sum=0#平均高温之和
+    min_sum=0#平均低温之和
+    t_min=100#极端低温
+    t_avemax=0#一年内平均高温
+    t_avemin=0#一年的平均低温
     for i in info:
-        max_sum+=eval(i[0])
+        max_sum+=eval(i[0])#求和
         min_sum+=eval(i[1])
         if eval(i[2])>t_max:
             t_max=eval(i[2])
         if eval(i[3])<t_min:
             t_min=eval(i[3])
-    t_avemax=max_sum/len(info)
+    t_avemax=max_sum/len(info)#求平均值
     t_avemin=min_sum/len(info)
     return round(t_avemax,1),round(t_avemin,1),t_max,t_min
 
