@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from xpinyin import Pinyin
 import requests
+import time
 
 def getHTMLText(url:str):
     """
@@ -43,6 +44,8 @@ def statistic(info:list)->list:
     """
     根据各月份的天气信息，统计出一年的平均高温、平均低温、极端高温、极端低温信息，返回四个数值。
 
+    传入为二维列表，分别代表1-12月的信息。
+
     @参数 info：每个月的四个数值，列表类型，列表为字符串类型。
     """
 
@@ -63,8 +66,44 @@ def analyse(text:str)->list:
         ans.append(item.text[:-1])
     return ans[0:4]
 
+def annualWeather(city:str,year:str)->list:
+    """
+    分析该年的气温情况，返回为平均高温、平均低温、极端高温、极端低温，四个数值。
+    
+    输入错误返回为False。
+
+    @参数 city：代分析城市的名称，字符串类型。
+    @参数 year：分析的年份，字符串类型。
+    """
+    ans=[]
+    nowyear=time.strftime("%Y",time.localtime())
+    nowmonth=time.strftime("%m",time.localtime())
+    for i in range(1,(eval(nowmonth)+1) if year==nowyear else 13):
+        url=completeUrl(city,year+"{:0>2d}".format(i))
+        text=getHTMLText(url)
+        ans.append(analyse(text))
+    return statistic(ans)
+
+def getYear()->str:
+    """
+    从输入获取需要爬取的年份信息，并检查其合法性。返回值为获取的年份，字符串类型。
+    """
+    nowyear=time.strftime("%Y",time.localtime())
+    year=input("请输入你要获取的年份信息（范围2011-{}）：".format(nowyear))
+    while not year.isdigit() or eval(year)>eval(nowyear) or eval(year)<2011:
+        print("输入错误！请重新输入")
+        year=input("请输入你要获取的年份信息（范围2011-{}）：".format(nowyear))
+    return year
+
 def main():
-    ...
+    ls=getCityList()
+    year=getYear()
+    f=open("result-{}年.csv".format(year),"w",encoding='utf-8')
+    f.write("省份,城市,平均高温,平均低温,极端高温,极端低温\n")
+    for city in ls:
+        res=annualWeather(city,year)
+        f.write("{},{},{},{},{},{}\n".format(getProvincefromCity(city),city,res[0],res[1],res[2],res[3]))
+
 
 if __name__ == '__main__':
     main()
