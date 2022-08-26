@@ -1,8 +1,10 @@
+from calendar import month
 from bs4 import BeautifulSoup
 from xpinyin import Pinyin
 import requests
 import time
 import dic
+import os
 
 def getHTMLText(url:str):
     """
@@ -58,7 +60,7 @@ def completeUrl(city:str,date:str)->str:
     """
     if city=='重庆':                            #重庆进行特殊处理，否则返回zhongqing
         pinyin='chongqing'
-    if city=='香港':                            #香港进行特殊处理
+    elif city=='香港':                          #香港进行特殊处理
         pinyin='hongkong'
     else:
         pinyin=Pinyin().get_pinyin(city,'')
@@ -68,27 +70,29 @@ def statistic(info:list)->list:
     """
     根据各月份的天气信息，统计出一年的平均高温、平均低温、极端高温、极端低温信息，返回四个数值。
 
-    传入为二维列表，分别代表1-12月的信息。
+    传入为二维列表，分别代表各月的信息。
 
     @参数 info：每个月的四个数值，列表类型，列表为字符串类型。
     """
+    month_day=[31,28,31,30,31,30,31,31,30,31,30,31]
     t_max=-100                                  #极端高温
     max_sum=0                                   #平均高温之和
     min_sum=0                                   #平均低温之和
     t_min=100                                   #极端低温
     t_avemax=0                                  #一年内平均高温
     t_avemin=0                                  #一年的平均低温
-    for i in info:
-        max_sum+=eval(i[0])                     #求和
-        min_sum+=eval(i[1])
+    day=0                                       #一年的天数
+    for t,i in enumerate(info):
+        max_sum+=eval(i[0])*month_day[t]        #求和
+        min_sum+=eval(i[1])*month_day[t]
+        day+=month_day[t]
         if eval(i[2])>t_max:
             t_max=eval(i[2])
         if eval(i[3])<t_min:
             t_min=eval(i[3])
-    t_avemax=max_sum/len(info)                  #求平均值
-    t_avemin=min_sum/len(info)
+    t_avemax=max_sum/day                        #求平均值
+    t_avemin=min_sum/day
     return round(t_avemax,1),round(t_avemin,1),t_max,t_min
-
 
 def analyse(text:str):
     """
@@ -117,43 +121,48 @@ def annualWeather(city:str,year:str)->list:
     @参数 year：分析的年份，字符串类型。
     """
     ls=[]
-    nowyear=time.strftime("%Y",time.localtime())
-    nowmonth=time.strftime("%m",time.localtime())
-    if nowmonth[0]=='0':
+    nowyear=time.strftime("%Y",time.localtime())                    #当前年份
+    nowmonth=time.strftime("%m",time.localtime())                   #当前月份
+    if nowmonth[0]=='0':                                            #去除月份前导零
         nowmonth=nowmonth[1:]
-    for i in range(1,(eval(nowmonth)+1) if year==nowyear else 13):
+    for i in range(1,(eval(nowmonth)+1) if year==nowyear else 13):  #如果是当前年份则统计到当前月份
         url=completeUrl(city,year+"{:0>2d}".format(i))
         text=getHTMLText(url)
-        cnt=0                                           #错误次数统计
+        cnt=0                                                       #错误次数统计
         while not text:
-            print("{}天气获取错误！".format(city))
+            print("\033[31m{}天气获取错误！\033[0m".format(city))    #输出红色报错提示
             cnt+=1
-            reportError(text,cnt)
+            reportError(url,text,cnt)
             text=getHTMLText(url)
         t=analyse(text)
         while not t:
-            print("{}天气获取错误！".format(city))
+            print("\033[31m{}天气获取错误！\033[0m".format(city))
             cnt+=1
-            reportError(text,cnt)
+            reportError(url,text,cnt)
             text=getHTMLText(url)
             t=analyse(text)
         ls.append(t)
     return statistic(ls)
 
-def reportError(text,num:int):
+def reportError(url:str,text,num:int):
     """
     该函数为报告错误函数，将会为当前时间生成一个日志文件，保存当时的网页内容
 
+    @参数 url：报错时的网页链接，字符串类型。
     @参数 text：报错时的网页内容，字符串类型，或为False。
+    @参数 num：产生错误的次数，整数类型。
     """
-    maxError=10                                     #最大错误次数
+    os.makedirs("./log/",exist_ok=True)             #新建log文件夹
+    f=open('./log/error_{}.log'.format(time.strftime("%Y%m%d%H%M%S",\
+    time.localtime())),"w",encoding='utf-8')
+    print("产生错误的网址为：{}".format(url))
+    f.write("Error Url:{}\n".format(url))
+    maxError=5                                      #最大错误次数
     if num>=maxError:                               #超过最大错误次数，则退出程序
         print('错误次数达到上限！程序自动退出！')
         exit()
     if not text:
         return
-    f=open('error_{}.log'.format(time.strftime("%Y%m%d%H%M%S",\
-    time.localtime())),"w",encoding='utf-8')
     f.write(text)
     f.close()                                       #保存日志文件
 
@@ -171,7 +180,8 @@ def getYear()->str:
 def main():
     ls=getCityList(dic.dic)
     year=getYear()
-    f=open("result-{}年.csv".format(year),"w",encoding='gbk')       #以gbk编码保存，方便excel打开
+    os.makedirs("./result/",exist_ok=True)                              #新建result文件夹
+    f=open("./result/{}年天气情况.csv".format(year),"w",encoding='gbk')  #以gbk编码保存，方便excel打开
     print("省份,城市,平均高温,平均低温,极端高温,极端低温")
     f.write("省份,城市,平均高温,平均低温,极端高温,极端低温\n")
     for city in ls:
