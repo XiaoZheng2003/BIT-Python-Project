@@ -19,9 +19,8 @@ for year in range(2011,2023):
         # 将pandas.DataFrame格式的数据，每一行转为元组tuple，所有数据以列表list输出
         data=df[['省份',ls[row]]].apply(lambda x:tuple(x),axis=1).values.tolist()
         temp=df[ls[row]].values
-        temp_all=sum(df[ls].values.tolist(),[])
-        _max =math.ceil(max(temp_all))
-        _min =math.floor(min(temp_all))
+        _max =math.ceil(max(temp))
+        _min =math.floor(min(temp))
         map_ = Map()
         map_.add("省份{}".format(ls[row]), data, maptype="china", zoom=1)
         map_.set_global_opts(
