@@ -72,8 +72,11 @@ for k,v in dic.items():
 
 
     #生成平均高温低温图像
-    plt.title(name+'平均高低温',fontproperties='SimHei',fontsize=20)
-    plt.xlabel('年份/年',fontproperties='SimHei',fontsize=10)
+    if str(k)==str(v[0]):
+        plt.title(str(v[0])+'平均高低温',fontproperties='SimHei',fontsize=20)
+    else:
+        plt.title(str(k)+str(v[0])+'平均高低温',fontproperties='SimHei',fontsize=20)
+    plt.xlabel('年份/年(注：2022年数据截至8月）',fontproperties='SimHei',fontsize=10)
     plt.ylabel('温度/℃',fontproperties='SimHei',fontsize=10)
     x_major_locator=MultipleLocator(1)
     #把x轴的刻度间隔设置为1，并存在变量里
@@ -84,11 +87,12 @@ for k,v in dic.items():
     #把x轴的主刻度设置为1的倍数
    
     for x,y in zip(years1,ave_max1):
-        plt.text(x,y,'%.1f' % y+'℃',fontdict={'fontsize':7})
+        plt.text(x-0.5,y-0.7,'  '+str(y)+'℃',fontdict={'fontsize':7})
     #在图像中加数据标识
     for x,y in zip(years1,ave_min1):
-        plt.text(x,y,'%.1f' % y+'℃',fontdict={'fontsize':7})
+        plt.text(x-0.5,y+0.7,'  '+str(y)+'℃',fontdict={'fontsize':7})
     #在图像中加数据标识
+    
     plt.plot(years1,ave_max1,'ro-',years1,ave_min1,'bo-')
     #去掉下行注释可以保存图像
     plt.savefig('../result/images/'+name+'平均高低温',dpi=600)#保存PNG图像，文件名为”省份_省会平均高低温“
@@ -100,8 +104,11 @@ for k,v in dic.items():
 
 
     #生成极端高温低温图像
-    plt.title(name+'极端高低温',fontproperties='SimHei',fontsize=20)
-    plt.xlabel('年份/年',fontproperties='SimHei',fontsize=10)
+    if str(k)==str(v[0]):
+        plt.title(str(k)+'极端高低温',fontproperties='SimHei',fontsize=20)
+    else:
+        plt.title(str(k)+str(v[0])+'极端高低温',fontproperties='SimHei',fontsize=20)
+    plt.xlabel('年份/年(注：2022年数据截至8月）',fontproperties='SimHei',fontsize=10)
     plt.ylabel('温度/℃',fontproperties='SimHei',fontsize=10)
     x_major_locator=MultipleLocator(1)
     #把x轴的刻度间隔设置为1，并存在变量里
@@ -112,11 +119,12 @@ for k,v in dic.items():
     #把x轴的主刻度设置为1的倍数
     
     for x,y in zip(years1,t_max1):
-        plt.text(x,y,'%.1f' % y+'℃',fontdict={'fontsize':7})
+        plt.text(x-0.3,y-2,'  '+str(y)+'℃',fontdict={'fontsize':7})
     #在图像中加数据标识
     for x,y in zip(years1,t_min1):
-        plt.text(x,y,'%.1f' % y+'℃',fontdict={'fontsize':7})
+        plt.text(x-0.3,y+2,'  '+str(y)+'℃',fontdict={'fontsize':7})
     #在图像中加数据标识
+    
     plt.plot(years1,t_max1,'ro-',years1,t_min1,'bo-')
     #plt.show()
     #去掉下行注释可以保存图像
