@@ -1,4 +1,3 @@
-from calendar import month
 from bs4 import BeautifulSoup
 from xpinyin import Pinyin
 import requests
@@ -19,7 +18,7 @@ def getHTMLText(url:str):
         AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102\
         Safari/537.36 Edg/104.0.1293.63'}           #添加user-agent，防止被网站拒绝访问
         r=requests.get(url,timeout=30,headers=kv)
-        time.sleep(2)                               #防止请求过快，爬虫受限
+        time.sleep(10)                              #防止请求过快，爬虫受限
         r.raise_for_status()                        #若网站返回非200的错误代码，则报错
         r.encoding=r.apparent_encoding              #修改网页编码
         return r.text
