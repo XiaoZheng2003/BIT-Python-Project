@@ -11,7 +11,6 @@ for year in range(2011,2023):
         encoding='gbk',
         index_col=None,
         header=0,
-        skiprows=[1],
         converters={'省份':str},
         usecols=['省份','平均高温','平均低温','极端高温','极端低温'])
     for row in range(4):
