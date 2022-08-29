@@ -1,3 +1,6 @@
+"""
+该程序从https://lishi.tianqi.com/ 获取天气信息，但信息源不太准确
+"""
 from bs4 import BeautifulSoup
 from xpinyin import Pinyin
 import requests
