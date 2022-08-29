@@ -1,3 +1,4 @@
+import os
 import dic
 import numpy as np
 import matplotlib.pyplot as plt
@@ -5,17 +6,17 @@ from matplotlib.pyplot import MultipleLocator
 
 '''以下是手动输入省份省会获取图像的代码
 name=input("请输入省份及省会名，格式为“省份_省会”")
-url='../result/city/'+name+'.csv'#描述文件路径
+url='result/citybyYear/'+name+'.csv'#描述文件路径
 try:
     data =np.loadtxt(url,dtype=str,delimiter=',')#读取csv文件为array格式，数据形式为str
 except:
     print("输入错误")'''
 
-
+os.makedirs("./result/images/",exist_ok=True)
 #以下是自动生成所有城市图像的代码
 for k,v in dic.dic.items():
     name=str(k)+'_'+str(v[0])
-    url='../result/city/'+name+'.csv'#描述文件路径
+    url='result/citybyYear/'+name+'.csv'#描述文件路径
     data =np.loadtxt(url,dtype=str,delimiter=',')#读取csv文件为array格式，数据形式为str
 
     #每一列数据分别读取
@@ -57,7 +58,7 @@ for k,v in dic.dic.items():
     
     plt.plot(years1,ave_max1,'ro-',years1,ave_min1,'bo-')
     #去掉下行注释可以保存图像
-    plt.savefig('../result/images/'+name+'平均高低温',dpi=600)#保存PNG图像，文件名为”省份_省会平均高低温“
+    plt.savefig('result/images/'+name+'平均高低温',dpi=600)#保存PNG图像，文件名为”省份_省会平均高低温“
     #plt.show()
 
     #清空绘图以免第二张图像保留第一张内容
@@ -90,7 +91,7 @@ for k,v in dic.dic.items():
     plt.plot(years1,t_max1,'ro-',years1,t_min1,'bo-')
     #plt.show()
     #去掉下行注释可以保存图像
-    plt.savefig('../result/images/'+name+'极端高低温',dpi=600)#保存PNG图像，文件名为”省份_省会极端高低温“
+    plt.savefig('result/images/'+name+'极端高低温',dpi=600)#保存PNG图像，文件名为”省份_省会极端高低温“
 
     #清空绘图以免第二张图像保留第一张内容
     plt.clf() # 清图。

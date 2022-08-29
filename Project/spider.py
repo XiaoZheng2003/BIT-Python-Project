@@ -23,14 +23,14 @@ def getHTMLText(url:str):
             kv={'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
             AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102\
             Safari/537.36 Edg/104.0.1293.63'}           #添加user-agent，防止被网站拒绝访问
-            r=requests.get(url,timeout=None,headers=kv)
+            r=requests.get(url,timeout=30,headers=kv)
             time.sleep(10)                              #防止请求过快，爬虫受限
             r.raise_for_status()                        #若网站返回非200的错误代码，则报错
             return r.text
         except:
             retry+=1
             time.sleep(10)
-            print("{}第{}次尝试".format(url,retry))
+            print("{} 出错！第{}次重试".format(url,retry))
 
 def getProvincefromCity(dic:dict,city:str)->str:
     """
@@ -66,6 +66,8 @@ def completeUrl(city:str,month:str)->str:
     """
     if city=='重庆':                            #重庆进行特殊处理，否则返回zhongqing
         pinyin='chongqing'
+    elif city=='福州':                          #重庆进行特殊处理，否则返回zhongqing
+        pinyin='fujianfuzhou'
     else:
         pinyin=Pinyin().get_pinyin(city,'')
     return "http://www.tianqihoubao.com/lishi/"+pinyin+'/'+month+'.html'
@@ -115,10 +117,10 @@ def reportError(url:str,text,num:int):
     f.close()                                       #保存日志文件
 
 def main():
-    os.makedirs("./result2/city/",exist_ok=True)
+    os.makedirs("./result2/citybyMonth/",exist_ok=True)
     ls=getCityList(dic.dic)
     for city in ls:
-        f=open("./result2/city/{}_{}.csv".format(city,getProvincefromCity(dic.dic,city)),"w",encoding='gbk')
+        f=open("./result2/citybyMonth/{}_{}.csv".format(getProvincefromCity(dic.dic,city),city),"w",encoding='gbk')
         f.write("时间,月最高气温,月最低气温,月平均最高气温,月平均最低气温\n")
         for month in range(1,13):
             url=completeUrl(city,str(month))
