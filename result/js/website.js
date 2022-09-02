@@ -640,6 +640,15 @@ var styleJson =[{
     }
 }]
 
+function jump(){
+    let myselect=document.getElementById("year");
+    let index=myselect.selectedIndex;
+    let year=myselect.options[index].value;
+    myselect=document.getElementById("type");
+    index=myselect.selectedIndex;
+    let type=myselect.options[index].value;
+    window.location.href=year+'年'+type+'.html';
+}
     // 百度地图API功能
     // var map = new BMap.Map("allmap"); // 创建Map实例
     var map = new BMap.Map("allmap"); // 创建Map实例
