@@ -652,7 +652,7 @@ function jump(){
     // 百度地图API功能
     // var map = new BMap.Map("allmap"); // 创建Map实例
     var map = new BMap.Map("allmap"); // 创建Map实例
-map.centerAndZoom(new BMap.Point(110.454, 32.955), 6); // 设置地图显示的城市 此项是必须设置的
+map.centerAndZoom(new BMap.Point(109.454, 32.955), 6); // 设置地图显示的城市 此项是必须设置的
 map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
 //地图样式
 map.setMapStyleV2({ styleJson: styleJson });

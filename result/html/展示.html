@@ -9,11 +9,12 @@
     <script type="text/javascript"
         src="http://api.map.baidu.com/api?v=3.0&ak=CXSP5BmpQKaNkpff9cOQ3Gq1YCICcGs2"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
-    <title>展示</title>
+    <title>python爬虫-气温数据综合展示</title>
 </head>
 <body>
     <div id="allmap"></div>
-    <div style=" position: absolute;top: 10px;background-color:rgba(0, 225, 255, 0.11)">请选择你要查看的年份和热力图类型：
+    <div style=" position: absolute;width:100%;height:40px;background-color: rgba(1, 116, 116, 0.192);">
+    <div style=" position: absolute;top:10px">请选择你要查看的年份和热力图类型：
         <label>年份</label>
         <select id="year" name="year">
             <option value="2011" selected>2011</option>
@@ -36,7 +37,9 @@
             <option value="平均低温">平均低温</option>
             <option value="平均高温">平均高温</option>
         </select>
-        <button onclick="jump()">查询</button></div>
+        <button onclick="jump()">查询</button>
+    </div>
+    </div>
 </body>
 <script type="text/javascript" src="../js/website.js"></script>
 </html>
