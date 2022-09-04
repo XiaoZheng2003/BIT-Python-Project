@@ -66,7 +66,7 @@ def completeUrl(city:str,month:str)->str:
     """
     if city=='重庆':                            #重庆进行特殊处理，否则返回zhongqing
         pinyin='chongqing'
-    elif city=='福州':                          #重庆进行特殊处理，否则返回zhongqing
+    elif city=='福州':                          #福州进行特殊处理
         pinyin='fujianfuzhou'
     else:
         pinyin=Pinyin().get_pinyin(city,'')
