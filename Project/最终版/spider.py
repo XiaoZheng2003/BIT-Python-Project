@@ -17,7 +17,7 @@ def getHTMLText(url: str):
 
     @参数 url：爬取网页的url，包括协议头（如http://），字符串类型
     """
-    MAX_RETRY = 3
+    MAX_RETRY = 3  # 最大出错次数
     retry = 0
     while retry < MAX_RETRY:
         try:
@@ -32,6 +32,7 @@ def getHTMLText(url: str):
             retry += 1
             time.sleep(10)
             print("{} 出错！第{}次重试".format(url, retry))
+    return False
 
 
 def getProvincefromCity(dic: dict, city: str) -> str:
@@ -102,22 +103,22 @@ def analyse(text: str) -> list:
 
 def reportError(url: str, text, num: int):
     """
-    该函数为报告错误函数，将会为当前时间生成一个日志文件，保存当时的网页内容
+    该函数为报告错误函数，将会以当前时间为文件名，生成一个日志文件，保存当时的网页内容。
 
     @参数 url：报错时的网页链接，字符串类型。
-    @参数 text：报错时的网页内容，字符串类型，或为False。
+    @参数 text：报错时的网页内容，字符串类型，或为False，代表未能获取网页内容。
     @参数 num：产生错误的次数，整数类型。
     """
     os.makedirs("./log/", exist_ok=True)  # 新建log文件夹
     f = open('./log/error_{}.log'.format(time.strftime("%Y%m%d%H%M%S",
-                                                       time.localtime())), "w", encoding='utf-8')
+             time.localtime())), "w", encoding='utf-8')
     print("产生错误的网址为：{}".format(url))
     f.write("Error Url:{}\n".format(url))
     maxError = 5  # 最大错误次数
     if num >= maxError:  # 超过最大错误次数，则退出程序
         print('错误次数达到上限！程序自动退出！')
         exit()
-    if not text:
+    if not text:  # 如果未获取到网页信息，则不写入log文件
         return
     f.write(text)
     f.close()  # 保存日志文件
