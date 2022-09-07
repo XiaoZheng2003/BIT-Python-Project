@@ -1,0 +1,101 @@
+body {
+    overflow-x: hidden;
+    background: url(../img/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: white;
+}
+
+.head {
+    text-align: center;
+    margin: auto;
+    margin-top: 1%;
+    width: 85%;
+    padding: 5px;
+    padding-bottom: 30px;
+    border-radius: 15px;
+    background-color: rgba(50, 50, 50, 0.6);
+    text-align: center;
+}
+
+.head h1 {
+    font-size: 50px;
+    letter-spacing: 4px;
+    font-weight: 550;
+}
+
+.head h2 {
+    font-size: 25px;
+    letter-spacing: 4px;
+    font-weight: 400;
+}
+
+.logo {
+    float: middle;
+    margin: 5px;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    transition: width 0.7s, height 0.7s;
+}
+
+.logo:hover {
+    width: 150px;
+    height: 150px;
+}
+
+.pic {
+    vertical-align: middle;
+    border-radius: 10px;
+    width: 80px;
+    height: 80px;
+    transition: width 0.5s, height 0.5s;
+}
+
+.pic:hover {
+    width: 120px;
+    height: 120px;
+}
+
+.content {
+    font-size: 20px;
+}
+
+.content .member {
+    position: relative;
+    width: 100%;
+}
+
+button {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    width: 100px;
+    height: 50px;
+    color: rgb(8, 8, 8);
+    background-color: rgb(240, 225, 145);
+    border-radius: 15px;
+    font-size: 180%;
+    font-family: 华文行楷, 微软雅黑;
+}
+
+button:hover {
+    color: red
+}
+
+#member1,
+#member4 {
+    left: 15%;
+}
+
+#member2,
+#member3 {
+    left: 22%;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
