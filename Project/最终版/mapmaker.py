@@ -22,19 +22,20 @@ for year in range(2011, 2023):
         # 将pandas.DataFrame格式的数据，每一行转为元组tuple，所有数据以列表list输出
         data = df[['省份', ls[row]]].apply(
             lambda x: tuple(x), axis=1).values.tolist()
-        temp = df[ls[row]].values
-        _max = math.ceil(max(temp))
-        _min = math.floor(min(temp))
+        temp = df[ls[row]].values  # 将该列数据保存
+        _max = math.ceil(max(temp))  # 将最大值上取整
+        _min = math.floor(min(temp))  # 将最小值下取整
         map_ = Map()
-        map_.add("省份{}".format(ls[row]), data, maptype="china", zoom=1)
+        map_.add("省份{}".format(ls[row]), data, maptype="china", zoom=1)  # 设置图例
         map_.set_global_opts(
-            title_opts=opts.TitleOpts(title="{}年{}".format(year, ls[row]),
+            title_opts=opts.TitleOpts(title="{}年{}".format(year, ls[row]),  # 设置标题
                                       pos_right="center",
                                       pos_top="5%"),
             visualmap_opts=opts.VisualMapOpts(max_=_max,
                                               min_=_min,
                                               # range_color=['green','yellow','red']
+                                              # 此处可自定义颜色
                                               ),
         )
-        os.makedirs("./result/html/", exist_ok=True)
-        map_.render("result/html/{}年{}.html".format(year, ls[row]))
+        os.makedirs("./result/html/", exist_ok=True)  # 创建文件夹
+        map_.render("result/html/{}年{}.html".format(year, ls[row]))  # 保存热力图

@@ -14,14 +14,16 @@ def manual():
     以下是手动输入省份省会获取图像的代码。
     """
     while True:
-        name = input("请输入省份及省会名，格式为“省份_省会”，例如“福建_福州”。\n")
+        name = input(
+            "请输入省份及省会名，格式为“省份_省会”，例如“福建_福州”。\n" +
+            "注：直辖市请输入城市名，格式为“直辖市_直辖市”，例如“重庆_重庆”。\n")  # 输入提示信息
         url = 'result/citybyYear/'+name+'.csv'  # 描述文件路径
         try:
             # 读取csv文件为array格式，数据形式为str
             data = np.loadtxt(url, dtype=str, delimiter=',')
             k = name.split('_')[0]
             v = name.split('_')[1]
-            process(data, k, v)# 绘制图像
+            process(data, k, v)  # 绘制图像
             break
         except:
             print("输入错误！请重新输入")
@@ -31,12 +33,12 @@ def auto():
     """
     以下是自动生成所有城市图像的代码。
     """
-    for k, v in dic.dic.items():# 遍历字典
-        name = str(k)+'_'+str(v[0])# 文件名
+    for k, v in dic.dic.items():  # 遍历字典
+        name = str(k)+'_'+str(v[0])  # 文件名
         url = 'result/citybyYear/'+name+'.csv'  # 描述文件路径
         # 读取csv文件为array格式，数据形式为str
         data = np.loadtxt(url, dtype=str, delimiter=',')
-        process(data, k, v[0])# 绘制图像
+        process(data, k, v[0])  # 绘制图像
 
 
 def process(data, k, v):
@@ -60,11 +62,14 @@ def process(data, k, v):
 
     # 生成平均高温低温图像
     if str(k) == str(v):
-        plt.title(str(v)+'平均高低温', fontproperties='SimHei', fontsize=20)# 直辖市标题
+        plt.title(str(v)+'平均高低温', fontproperties='SimHei',
+                  fontsize=20)  # 直辖市标题
     else:
-        plt.title(str(k)+str(v)+'平均高低温',fontproperties='SimHei', fontsize=20)# 省份省会标题
-    plt.xlabel('年份/年(注：2022年数据截至8月）', fontproperties='SimHei', fontsize=10)# x轴
-    plt.ylabel('温度/℃', fontproperties='SimHei', fontsize=10)# y轴
+        plt.title(str(k)+str(v)+'平均高低温',
+                  fontproperties='SimHei', fontsize=20)  # 省份省会标题
+    plt.xlabel(
+        '年份/年(注：2022年数据截至8月）', fontproperties='SimHei', fontsize=10)  # x轴
+    plt.ylabel('温度/℃', fontproperties='SimHei', fontsize=10)  # y轴
 
     '''
     将x轴的单位长度设置为1
@@ -96,11 +101,14 @@ def process(data, k, v):
 
     # 生成极端高温低温图像
     if str(k) == str(v):
-        plt.title(str(k)+'极端高低温', fontproperties='SimHei', fontsize=20)# 直辖市标题
+        plt.title(str(k)+'极端高低温', fontproperties='SimHei',
+                  fontsize=20)  # 直辖市标题
     else:
-        plt.title(str(k)+str(v)+'极端高低温',fontproperties='SimHei', fontsize=20)# 省份省会标题
-    plt.xlabel('年份/年(注：2022年数据截至8月）', fontproperties='SimHei', fontsize=10)# x轴
-    plt.ylabel('温度/℃', fontproperties='SimHei', fontsize=10)# y轴
+        plt.title(str(k)+str(v)+'极端高低温',
+                  fontproperties='SimHei', fontsize=20)  # 省份省会标题
+    plt.xlabel(
+        '年份/年(注：2022年数据截至8月）', fontproperties='SimHei', fontsize=10)  # x轴
+    plt.ylabel('温度/℃', fontproperties='SimHei', fontsize=10)  # y轴
 
     '''
     将x轴的单位长度设置为1
@@ -131,9 +139,9 @@ def process(data, k, v):
 
 
 def main():
-    os.makedirs("./result/images/", exist_ok=True)
-    # manual()  # 手动输入省份省会获取图像
-    auto()  # 自动生成所有城市图像
+    os.makedirs("./result/images/", exist_ok=True)  # 创建文件夹
+    manual()  # 手动输入省份省会获取图像
+    # auto()  # 自动生成所有城市图像
 
 
 if __name__ == '__main__':
