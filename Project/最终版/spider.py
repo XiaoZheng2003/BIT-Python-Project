@@ -20,7 +20,7 @@ def getHTMLText(url: str):
     @参数 url：爬取网页的url，包括协议头（如http://），字符串类型
     """
     MAX_RETRY = 3  # 最大出错次数
-    retry = 0
+    retry = 0  # 当前出错次数
     while retry < MAX_RETRY:
         try:
             kv = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
@@ -31,8 +31,8 @@ def getHTMLText(url: str):
             r.raise_for_status()  # 若网站返回非200的错误代码，则报错
             return r.text
         except:
-            retry += 1
-            time.sleep(10)
+            retry += 1  # 错误次数加一
+            time.sleep(10)  # 出错后，程序暂停一段时间
             print("{} 出错！第{}次重试".format(url, retry))
     return False
 
@@ -75,7 +75,7 @@ def completeUrl(city: str, month: str) -> str:
         pinyin = 'chongqing'
     elif city == '福州':  # 福州进行特殊处理
         pinyin = 'fujianfuzhou'
-    else:
+    else:  # 其他情况程序自动转换拼音
         pinyin = Pinyin().get_pinyin(city, '')
     return "http://www.tianqihoubao.com/lishi/"+pinyin+'/'+month+'.html'
 
@@ -88,18 +88,20 @@ def analyse(text: str) -> list:
 
     @参数 text：网页的内容，字符串类型。
     """
-    soup = BeautifulSoup(text, "html.parser")
+    soup = BeautifulSoup(text, "html.parser")  # 解析网页内容
     ls = []
-    tr = soup.find(class_="b").find_all('tr')
-    for i in tr[1:]:
+    tr = soup.find(class_="b").find_all('tr')  # 解析表格
+    for i in tr[1:]:  # 忽略表头
         td = i.find_all('td')
         tls = []
-        for i in range(5):
-            if i:
-                tls.append(td[i].get_text().strip().replace(' ', '')[:-1])
+        for t in range(5):  # 遍历数据
+            if t:
+                tls.append(td[t].get_text().strip().replace(
+                    ' ', '')[:-1])  # 保留年月
             else:
-                tls.append(td[i].get_text().strip().replace(' ', ''))
-        ls.append(tls)
+                tls.append(td[t].get_text().strip().replace(
+                    ' ', ''))  # 舍去温度末尾的℃，便于数据处理
+        ls.append(tls)  # 加入列表中
     return ls
 
 
@@ -122,24 +124,24 @@ def reportError(url: str, text, num: int):
         exit()
     if not text:  # 如果未获取到网页信息，则不写入log文件
         return
-    f.write(text)
+    f.write(text)  # 写入网页信息
     f.close()  # 保存日志文件
 
 
 def main():
-    os.makedirs("./result2/citybyMonth/", exist_ok=True)
-    ls = getCityList(dic.dic)
-    for city in ls:
-        f = open("./result2/citybyMonth/{}_{}.csv".format(
-            getProvincefromCity(dic.dic, city), city), "w", encoding='gbk')
+    os.makedirs("./result/citybyMonth/", exist_ok=True)
+    ls = getCityList(dic.dic)  # 获取城市列表
+    for city in ls:  # 遍历城市
+        f = open("./result/citybyMonth/{}_{}.csv".format(
+            getProvincefromCity(dic.dic, city), city), "w", encoding='gbk')  # 创建数据文件
         f.write("时间,月最高气温,月最低气温,月平均最高气温,月平均最低气温\n")
-        for month in range(1, 13):
-            url = completeUrl(city, str(month))
-            text = getHTMLText(url)
-            ls = analyse(text)
+        for month in range(1, 13):  # 从1至12月分别获取数据
+            url = completeUrl(city, str(month))  # 补充网址
+            text = getHTMLText(url)  # 获取网页信息
+            ls = analyse(text)  # 分析文本
             for line in ls:
-                f.write(','.join(line)+'\n')
-            print(city+str(month)+"月ok")
+                f.write(','.join(line)+'\n')  # 写入数据
+            print(city+str(month)+"月保存成功！")  # 程序输出成功信息提示用户
 
 
 if __name__ == '__main__':
