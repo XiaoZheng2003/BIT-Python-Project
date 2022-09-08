@@ -794,7 +794,7 @@ marker[6].addEventListener('click', function () {
 });
 
 var sContent8 = "<div style='height: 600px;width:700px;'><h2>重庆</h2><img style='width:50%; float:left' src='../images/重庆_重庆平均高低温.png'/><img style='width:50%; float:left' src='../images/重庆_重庆极端高低温.png'/><p>属亚热带湿润气候，冬暖夏热，雨季较长。河谷地区多连晴高温，重庆市为我国著名的“火炉”之一。重庆市的极端高温在40℃左右，极端低温在2℃左右，平均高温在22℃附近，平均低温在15℃附近。温度在2021,2022呈现上升趋势，能体现全球变暖的趋势。 </p></div>";
-infoWindow[7] = new BMap.InfoWindow(sContent7);
+infoWindow[7] = new BMap.InfoWindow(sContent8);
 // marker添加点击事件
 marker[7].addEventListener('click', function () {
     map.centerAndZoom(chongqing, 7);
@@ -876,7 +876,7 @@ marker[16].addEventListener('click', function () {
 });
 
 var sContent18 = "<div style='height: 600px;width:700px;'><h2>江苏</h2><img style='width:50%; float:left' src='../images/江苏_南京平均高低温.png'/><img style='width:50%; float:left' src='../images/江苏_南京极端高低温.png'/><p>地处暖温带和亚热带过渡区，四季分明，温暖温润，季风影响显著。春夏之间多梅雨，夏秋之际多台风。南京市的极端高温在38℃左右，极端低温在零下5℃左右，平均高温在20℃附近，平均低温在12℃附近。温度呈现上升趋势，能体现全球变暖的趋势。</p></div>";
-infoWindow[17] = new BMap.InfoWindow(sContent17);
+infoWindow[17] = new BMap.InfoWindow(sContent18);
 // marker添加点击事件
 marker[17].addEventListener('click', function () {
     map.centerAndZoom(nanjing, 7);
