@@ -1,6 +1,7 @@
 """
 将各市每月的天气数据统计汇总成一年。
 """
+
 import os
 import pandas as pd
 

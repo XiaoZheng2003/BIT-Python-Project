@@ -1,3 +1,7 @@
+"""
+根据各城市近十年的数据绘制折线图。
+"""
+
 import os
 import dic
 import numpy as np

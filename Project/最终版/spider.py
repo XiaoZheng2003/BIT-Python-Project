@@ -1,6 +1,8 @@
 """
-该程序从http://www.tianqihoubao.com/ 获取天气信息
+负责天气网站数据的爬取，返回为各个城市各个月份的天气数据。
+注：该程序从http://www.tianqihoubao.com/ 获取天气信息
 """
+
 from bs4 import BeautifulSoup
 from xpinyin import Pinyin
 import requests
