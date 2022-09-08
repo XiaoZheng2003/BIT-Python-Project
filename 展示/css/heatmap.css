@@ -1,0 +1,30 @@
+body {
+    text-align: center;
+}
+
+.container-fluid {
+    margin-top: 50px;
+}
+
+.chart-container {
+    margin: 0 auto 50px;
+}
+
+#catalog {
+    top: 200px;
+    box-sizing: border-box;
+    margin: 0px 0px 0px 75%;
+    padding-bottom: 20px;
+    position: fixed;
+    z-index: 1;
+    float: right;
+    font-size: large;
+}
+
+#catalog h1 {
+    font-size: xx-large;
+}
+
+#return {
+    margin-top: 100px;
+}
