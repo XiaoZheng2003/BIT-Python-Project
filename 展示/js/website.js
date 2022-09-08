@@ -958,7 +958,7 @@ marker[26].addEventListener('click', function () {
 });
 
 var sContent28 = "<div style='height: 600px;width:700px;'><h2>西藏</h2><img style='width:50%; float:left' src='../images/西藏_拉萨平均高低温.png'/><img style='width:50%; float:left' src='../images/西藏_拉萨极端高低温.png'/><p>多数地区属高原气候，干燥寒冷，长冬无夏，空气稀薄，日照充足。仅藏东南部分地区受印度洋季风影响，较为温暖湿润。拉萨市的极端高温在28℃左右，极端低温在零下11℃左右，平均高温在17℃附近，平均低温在3℃附近。温度波动，不能体现全球变暖的趋势。</p></div>";
-infoWindow[27] = new BMap.InfoWindow(sContent27);
+infoWindow[27] = new BMap.InfoWindow(sContent28);
 // marker添加点击事件
 marker[27].addEventListener('click', function () {
     map.centerAndZoom(lasa, 7);
