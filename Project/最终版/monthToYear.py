@@ -12,8 +12,8 @@ def init(file: str) -> pd.DataFrame:
 
     @参数 file：csv文件名，字符串格式。
     """
-    df = pd.read_csv(file, encoding='gbk')
-    df = df.drop_duplicates()
+    df = pd.read_csv(file, encoding='gbk')  # 读取csv文件
+    df = df.drop_duplicates()  # 去除数据中的重复项
     return df
 
 
@@ -43,6 +43,7 @@ def statistic(info: list) -> list:
             t_min = i[3]
     t_avemax = max_sum/day  # 求平均值
     t_avemin = min_sum/day
+    # 四舍五入保留一位小数
     return round(t_avemax, 1), round(t_avemin, 1), t_max, t_min
 
 
@@ -53,24 +54,24 @@ def pick(df: pd.DataFrame, year: str) -> list:
     @参数 df：存放该城市所有月份的数据。为pandas的DataFrame类型。
     @参数 year：代表所需年份的数据。
     """
-    df = df[df['时间'].str.contains(year)]
+    df = df[df['时间'].str.contains(year)]  # 筛选某一年的数据
     order = ['月平均最高气温', '月平均最低气温', '月最高气温', '月最低气温']
-    return df[order].values.tolist()
+    return df[order].values.tolist()  # 将数据按指定顺序排列，并转换为列表类型
 
 
 def main():
-    file_ls = os.listdir('result/citybyMonth/')
-    os.makedirs("./result/citybyYear/", exist_ok=True)
-    for file in file_ls:
+    file_ls = os.listdir('result/citybyMonth/')  # 获取文件夹下所有文件
+    os.makedirs("./result/citybyYear/", exist_ok=True)  # 创建文件夹
+    for file in file_ls:  # 枚举文件
         f = open("result/citybyYear/"+file, "w", encoding='gbk')
         f.write("年份,平均高温,平均低温,极端高温,极端低温\n")
         df = init("result/citybyMonth/"+file)
-        for year in range(2011, 2023):
-            ls = pick(df, str(year))
-            print(file, year)
-            ans = statistic(ls)
+        for year in range(2011, 2023):  # 枚举年份
+            ls = pick(df, str(year))  # 选取该年份数据
+            print(file, year)  # 打印成功信息
+            ans = statistic(ls)  # 统计信息
             f.write("{},{},{},{},{}\n".format(
-                year, ans[0], ans[1], ans[2], ans[3]))
+                year, ans[0], ans[1], ans[2], ans[3]))  # 写入文件
 
 
 if __name__ == '__main__':
