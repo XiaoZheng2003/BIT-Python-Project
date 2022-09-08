@@ -7,6 +7,7 @@ pre, code, form, p,
 fieldset, legend, figure{
     margin: 0;
     padding: 0;
+    scroll-behavior: smooth;
 }
 
 body{
