@@ -652,7 +652,7 @@ function jump() {
 // 百度地图API功能
 // var map = new BMap.Map("allmap"); // 创建Map实例
 var map = new BMap.Map("allmap"); // 创建Map实例
-map.centerAndZoom(new BMap.Point(109.454, 32.955), 6); // 设置地图显示的城市 此项是必须设置的
+map.centerAndZoom(new BMap.Point(109.454, 32.955), 5); // 设置地图显示的城市 此项是必须设置的
 map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
 //地图样式
 map.setMapStyleV2({ styleJson: styleJson });
@@ -740,7 +740,7 @@ var sContent1 = "<div style='height: 600px;width:700px;'><h2>北京</h2><img sty
 infoWindow[0] = new BMap.InfoWindow(sContent1);
 // marker添加点击事件
 marker[0].addEventListener('click', function () {
-    map.centerAndZoom(beijing, 7);
+    map.centerAndZoom(beijing, 6);
     this.openInfoWindow(infoWindow[0]);
 });
 
@@ -748,7 +748,7 @@ var sContent2 = "<div style='height: 600px;width:700px;'><h2>安徽</h2><img sty
 infoWindow[1] = new BMap.InfoWindow(sContent2);
 // marker添加点击事件
 marker[1].addEventListener('click', function () {
-    map.centerAndZoom(hefei, 7);
+    map.centerAndZoom(hefei, 6);
     this.openInfoWindow(infoWindow[1]);
 });
 
@@ -757,7 +757,7 @@ var sContent3 = "<div style='height: 600px;width:700px;'><h2>台湾</h2><img sty
 infoWindow[2] = new BMap.InfoWindow(sContent3);
 // marker添加点击事件
 marker[2].addEventListener('click', function () {
-    map.centerAndZoom(taibei, 7);
+    map.centerAndZoom(taibei, 6);
     this.openInfoWindow(infoWindow[2]);
 });
 
@@ -765,7 +765,7 @@ var sContent4 = "<div style='height: 600px;width:700px;'><h2>河北</h2><img sty
 infoWindow[3] = new BMap.InfoWindow(sContent4);
 // marker添加点击事件
 marker[3].addEventListener('click', function () {
-    map.centerAndZoom(shijiazhuang, 7);
+    map.centerAndZoom(shijiazhuang, 6);
     this.openInfoWindow(infoWindow[3]);
 });
 
@@ -773,7 +773,7 @@ var sContent5 = "<div style='height: 600px;width:700px;'><h2>黑龙江</h2><img 
 infoWindow[4] = new BMap.InfoWindow(sContent5);
 // marker添加点击事件
 marker[4].addEventListener('click', function () {
-    map.centerAndZoom(haerbin, 7);
+    map.centerAndZoom(haerbin, 6);
     this.openInfoWindow(infoWindow[4]);
 });
 
@@ -781,15 +781,15 @@ var sContent6 = "<div style='height: 600px;width:700px;'><h2>湖北</h2><img sty
 infoWindow[5] = new BMap.InfoWindow(sContent6);
 // marker添加点击事件
 marker[5].addEventListener('click', function () {
-    map.centerAndZoom(wuhan, 7);
+    map.centerAndZoom(wuhan, 6);
     this.openInfoWindow(infoWindow[5]);
 });
 
 var sContent7 = "<div style='height: 600px;width:700px;'><h2>天津</h2><img style='width:50%; float:left' src='../images/天津_天津平均高低温.png'/><img style='width:50%; float:left' src='../images/天津_天津极端高低温.png'/><p>属暖温带半湿润大陆季风型气候，有明显由陆到海的过渡型。气候特点是四季明显，长短不一:降水不多，分配不均;季风显著，日照较足。天津的极端高温在36到40℃，极端低温在零下20到9℃，平均高温在18℃附近，平均低温在9℃附近。温度呈现不断上升的趋势，能体现全球变暖的趋势。</p></div>";
-infoWindow[6] = new BMap.InfoWindow(sContent7);
+infoWindow[6] = new BMap.InfoWindow(sContent6);
 // marker添加点击事件
 marker[6].addEventListener('click', function () {
-    map.centerAndZoom(tianjin, 7);
+    map.centerAndZoom(tianjin, 6);
     this.openInfoWindow(infoWindow[6]);
 });
 
@@ -797,7 +797,7 @@ var sContent8 = "<div style='height: 600px;width:700px;'><h2>重庆</h2><img sty
 infoWindow[7] = new BMap.InfoWindow(sContent8);
 // marker添加点击事件
 marker[7].addEventListener('click', function () {
-    map.centerAndZoom(chongqing, 7);
+    map.centerAndZoom(chongqing, 6);
     this.openInfoWindow(infoWindow[7]);
 });
 
@@ -805,7 +805,7 @@ var sContent9 = "<div style='height: 600px;width:700px;'><h2>福建</h2><img sty
 infoWindow[8] = new BMap.InfoWindow(sContent9);
 // marker添加点击事件
 marker[8].addEventListener('click', function () {
-    map.centerAndZoom(fuzhou, 7);
+    map.centerAndZoom(fuzhou, 6);
     this.openInfoWindow(infoWindow[8]);
 });
 
@@ -813,7 +813,7 @@ var sContent10 = "<div style='height: 600px;width:700px;'><h2>甘肃</h2><img st
 infoWindow[9] = new BMap.InfoWindow(sContent10);
 // marker添加点击事件
 marker[9].addEventListener('click', function () {
-    map.centerAndZoom(lanzhou, 7);
+    map.centerAndZoom(lanzhou, 6);
     this.openInfoWindow(infoWindow[9]);
 });
 
@@ -821,7 +821,7 @@ var sContent11 = "<div style='height: 600px;width:700px;'><h2>广东</h2><img st
 infoWindow[10] = new BMap.InfoWindow(sContent11);
 // marker添加点击事件
 marker[10].addEventListener('click', function () {
-    map.centerAndZoom(guangzhou, 7);
+    map.centerAndZoom(guangzhou, 6);
     this.openInfoWindow(infoWindow[10]);
 });
 
@@ -829,7 +829,7 @@ var sContent12 = "<div style='height: 600px;width:700px;'><h2>广西</h2><img st
 infoWindow[11] = new BMap.InfoWindow(sContent12);
 // marker添加点击事件
 marker[11].addEventListener('click', function () {
-    map.centerAndZoom(nanning, 7);
+    map.centerAndZoom(nanning, 6);
     this.openInfoWindow(infoWindow[11]);
 });
 
@@ -837,7 +837,7 @@ var sContent13 = "<div style='height: 600px;width:700px;'><h2>贵州</h2><img st
 infoWindow[12] = new BMap.InfoWindow(sContent13);
 // marker添加点击事件
 marker[12].addEventListener('click', function () {
-    map.centerAndZoom(guiyang, 7);
+    map.centerAndZoom(guiyang, 6);
     this.openInfoWindow(infoWindow[12]);
 });
 
@@ -845,7 +845,7 @@ var sContent14 = "<div style='height: 600px;width:700px;'><h2>海南</h2><img st
 infoWindow[13] = new BMap.InfoWindow(sContent14);
 // marker添加点击事件
 marker[13].addEventListener('click', function () {
-    map.centerAndZoom(haikou, 7);
+    map.centerAndZoom(haikou, 6);
     this.openInfoWindow(infoWindow[13]);
 });
 
@@ -853,7 +853,7 @@ var sContent15 = "<div style='height: 600px;width:700px;'><h2>河南</h2><img st
 infoWindow[14] = new BMap.InfoWindow(sContent15);
 // marker添加点击事件
 marker[14].addEventListener('click', function () {
-    map.centerAndZoom(zhengzhou, 7);
+    map.centerAndZoom(zhengzhou, 6);
     this.openInfoWindow(infoWindow[14]);
 });
 
@@ -862,16 +862,16 @@ var sContent16 = "<div style='height: 600px;width:700px;'><h2>湖南</h2><img st
 infoWindow[15] = new BMap.InfoWindow(sContent16);
 // marker添加点击事件
 marker[15].addEventListener('click', function () {
-    map.centerAndZoom(changsha, 7);
+    map.centerAndZoom(changsha, 6);
     this.openInfoWindow(infoWindow[15]);
 });
 
 
 var sContent17 = "<div style='height: 600px;width:700px;'><h2>吉林</h2><img style='width:50%; float:left' src='../images/吉林_长春平均高低温.png'/><img style='width:50%; float:left' src='../images/吉林_长春极端高低温.png'/><p>属温带大陆性季风气候，冬长夏短，春秋多风。长春市的极端高温在34℃左右，极端低温在零下28℃左右，平均高温在12℃附近，平均低温在1℃附近。温度颠簸起伏，但在2021、2022年有较大上升趋势，能体现全球变暖的趋势。</p></div>";
-infoWindow[16] = new BMap.InfoWindow(sContent17);
+infoWindow[16] = new BMap.InfoWindow(sContent16);
 // marker添加点击事件
 marker[16].addEventListener('click', function () {
-    map.centerAndZoom(changchun, 7);
+    map.centerAndZoom(changchun, 6);
     this.openInfoWindow(infoWindow[16]);
 });
 
@@ -879,7 +879,7 @@ var sContent18 = "<div style='height: 600px;width:700px;'><h2>江苏</h2><img st
 infoWindow[17] = new BMap.InfoWindow(sContent18);
 // marker添加点击事件
 marker[17].addEventListener('click', function () {
-    map.centerAndZoom(nanjing, 7);
+    map.centerAndZoom(nanjing, 6);
     this.openInfoWindow(infoWindow[17]);
 });
 
@@ -887,7 +887,7 @@ var sContent19 = "<div style='height: 600px;width:700px;'><h2>江西</h2><img st
 infoWindow[18] = new BMap.InfoWindow(sContent19);
 // marker添加点击事件
 marker[18].addEventListener('click', function () {
-    map.centerAndZoom(nanchang, 7);
+    map.centerAndZoom(nanchang, 6);
     this.openInfoWindow(infoWindow[18]);
 });
 
@@ -895,7 +895,7 @@ var sContent20 = "<div style='height: 600px;width:700px;'><h2>辽宁</h2><img st
 infoWindow[19] = new BMap.InfoWindow(sContent20);
 // marker添加点击事件
 marker[19].addEventListener('click', function () {
-    map.centerAndZoom(shenyang, 7);
+    map.centerAndZoom(shenyang, 6);
     this.openInfoWindow(infoWindow[19]);
 });
 
@@ -904,7 +904,7 @@ var sContent21 = "<div style='height: 600px;width:700px;'><h2>内蒙古</h2><img
 infoWindow[20] = new BMap.InfoWindow(sContent21);
 // marker添加点击事件
 marker[20].addEventListener('click', function () {
-    map.centerAndZoom(huhehaote, 7);
+    map.centerAndZoom(huhehaote, 6);
     this.openInfoWindow(infoWindow[20]);
 });
 
@@ -912,7 +912,7 @@ var sContent22 = "<div style='height: 600px;width:700px;'><h2>宁夏</h2><img st
 infoWindow[21] = new BMap.InfoWindow(sContent22);
 // marker添加点击事件
 marker[21].addEventListener('click', function () {
-    map.centerAndZoom(yinchuan, 7);
+    map.centerAndZoom(yinchuan, 6);
     this.openInfoWindow(infoWindow[21]);
 });
 
@@ -920,7 +920,7 @@ var sContent23 = "<div style='height: 600px;width:700px;'><h2>青海</h2><img st
 infoWindow[22] = new BMap.InfoWindow(sContent23);
 // marker添加点击事件
 marker[22].addEventListener('click', function () {
-    map.centerAndZoom(xining, 7);
+    map.centerAndZoom(xining, 6);
     this.openInfoWindow(infoWindow[22]);
 });
 
@@ -929,7 +929,7 @@ var sContent24 = "<div style='height: 600px;width:700px;'><h2>山东</h2><img st
 infoWindow[23] = new BMap.InfoWindow(sContent24);
 // marker添加点击事件
 marker[23].addEventListener('click', function () {
-    map.centerAndZoom(jinan, 7);
+    map.centerAndZoom(jinan, 6);
     this.openInfoWindow(infoWindow[23]);
 });
 
@@ -937,7 +937,7 @@ var sContent25 = "<div style='height: 600px;width:700px;'><h2>山西</h2><img st
 infoWindow[24] = new BMap.InfoWindow(sContent25);
 // marker添加点击事件
 marker[24].addEventListener('click', function () {
-    map.centerAndZoom(taiyuan, 7);
+    map.centerAndZoom(taiyuan, 6);
     this.openInfoWindow(infoWindow[24]);
 });
 
@@ -945,15 +945,15 @@ var sContent26 = "<div style='height: 600px;width:700px;'><h2>陕西</h2><img st
 infoWindow[25] = new BMap.InfoWindow(sContent26);
 // marker添加点击事件
 marker[25].addEventListener('click', function () {
-    map.centerAndZoom(xian, 7);
+    map.centerAndZoom(xian, 6);
     this.openInfoWindow(infoWindow[25]);
 });
 
 var sContent27 = "<div style='height: 600px;width:700px;'><h2>上海</h2><img style='width:50%; float:left' src='../images/上海_上海平均高低温.png'/><img style='width:50%; float:left' src='../images/上海_上海极端高低温.png'/><p>属亚热带季风气候，温和湿润、日照充足，雨量充沛，四季分明。上海的极端高温在38℃左右，极端低温在零下5℃左右，平均高温在21℃附近，平均低温在14℃附近。温度呈现上升趋势，能体现全球变暖的趋势。</p></div>";
-infoWindow[26] = new BMap.InfoWindow(sContent27);
+infoWindow[26] = new BMap.InfoWindow(sContent26);
 // marker添加点击事件
 marker[26].addEventListener('click', function () {
-    map.centerAndZoom(shanghai, 7);
+    map.centerAndZoom(shanghai, 6);
     this.openInfoWindow(infoWindow[26]);
 });
 
@@ -961,7 +961,7 @@ var sContent28 = "<div style='height: 600px;width:700px;'><h2>西藏</h2><img st
 infoWindow[27] = new BMap.InfoWindow(sContent28);
 // marker添加点击事件
 marker[27].addEventListener('click', function () {
-    map.centerAndZoom(lasa, 7);
+    map.centerAndZoom(lasa, 6);
     this.openInfoWindow(infoWindow[27]);
 });
 
@@ -969,7 +969,7 @@ var sContent29 = "<div style='height: 600px;width:700px;'><h2>新疆</h2><img st
 infoWindow[28] = new BMap.InfoWindow(sContent29);
 // marker添加点击事件
 marker[28].addEventListener('click', function () {
-    map.centerAndZoom(wulu, 7);
+    map.centerAndZoom(wulu, 6);
     this.openInfoWindow(infoWindow[28]);
 });
 
@@ -977,7 +977,7 @@ var sContent30 = "<div style='height: 600px;width:700px;'><h2>云南</h2><img st
 infoWindow[29] = new BMap.InfoWindow(sContent30);
 // marker添加点击事件
 marker[29].addEventListener('click', function () {
-    map.centerAndZoom(kunming, 7);
+    map.centerAndZoom(kunming, 6);
     this.openInfoWindow(infoWindow[29]);
 });
 
@@ -985,7 +985,7 @@ var sContent31 = "<div style='height: 600px;width:700px;'><h2>浙江</h2><img st
 infoWindow[30] = new BMap.InfoWindow(sContent31);
 // marker添加点击事件
 marker[30].addEventListener('click', function () {
-    map.centerAndZoom(hangzhou, 7);
+    map.centerAndZoom(hangzhou, 6);
     this.openInfoWindow(infoWindow[30]);
 });
 
@@ -993,6 +993,6 @@ var sContent32 = "<div style='height: 600px;width:700px;'><h2>四川</h2><img st
 infoWindow[31] = new BMap.InfoWindow(sContent32);
 // marker添加点击事件
 marker[31].addEventListener('click', function () {
-    map.centerAndZoom(chengdu, 7);
+    map.centerAndZoom(chengdu, 6);
     this.openInfoWindow(infoWindow[31]);
 });
